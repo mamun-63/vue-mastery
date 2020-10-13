@@ -3,6 +3,8 @@ var app = new Vue({
   data: {
     product: 'Socks',
     image: './assets/vmSocks-green-onWhite.jpg',
-    link: 'https://www.youtube.com/',
+    inventory: 8,
+    display: true,
+    onSale: true,
   },
 })
