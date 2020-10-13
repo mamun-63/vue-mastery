@@ -5,12 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <div class="nav-bar"></div>
+
+
   <div id="app">
-    <h1>{{ product }}</h1>
+
+    <div class="product">
+
+      <div class="product-image">
+        <img v-bind:src="image" alt="">
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product }}</h1>
+        <a :href="link" target="_blank">Youtube</a>
+      </div>
+
+    </div>
+
+
 
   </div>
 
