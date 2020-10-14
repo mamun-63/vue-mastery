@@ -77,3 +77,13 @@ textarea {
   width: 100%;
   height: 60px;
 }
+
+.tab {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.activeTab {
+  color: #16c0b0;
+  text-decoration: underline;
+}
