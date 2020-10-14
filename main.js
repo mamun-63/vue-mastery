@@ -25,29 +25,28 @@ Vue.component('product', {
   template: `
   <div class="product">
 
-  <div class="product-image">
-    <img v-bind:src="image" alt="">
-  </div>
-
-  <div class="product-info">
-    <h1>{{ title }}</h1>
-    <p v-if="inStock">In Stock</p>
-    <p v-else>Out of Stock</p>
-    <p>User is premium: {{ premium }}<p>
-    <p>Shipping: {{ shipping }}<p>
-
-    <product-details :details="details"></product-details>
-
-    <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
-      :style="{ backgroundColor: variant.variantColor }" @mouseover="updateImage(index)">
+    <div class="product-image">
+      <img v-bind:src="image" alt="">
     </div>
 
-    <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">Add to Cart</button>
+    <div class="product-info">
+      <h1>{{ title }}</h1>
+      <p v-if="inStock">In Stock</p>
+      <p v-else>Out of Stock</p>
+      <p>User is premium: {{ premium }}<p>
+      <p>Shipping: {{ shipping }}<p>
 
-    <div class="cart">
-      <p>Cart({{ cart }})</p>
+      <product-details :details="details"></product-details>
+
+      <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
+        :style="{ backgroundColor: variant.variantColor }" @mouseover="updateImage(index)">
+      </div>
+
+      <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">Add to Cart</button>
+      <button @click="removeFromCart">Remove from cart</button>
+
     </div>
-
+  
   </div>
   `,
 
@@ -71,13 +70,18 @@ Vue.component('product', {
           variantQuantity: 0,
         },
       ],
-      cart: 0,
     }
   },
 
   methods: {
     addToCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
+    },
+    removeFromCart() {
+      this.$emit(
+        'remove-from-cart',
+        this.variants[this.selectedVariant].variantId
+      )
     },
     updateImage(index) {
       this.selectedVariant = index
@@ -108,5 +112,14 @@ var app = new Vue({
   el: '#app',
   data: {
     premium: true,
+    cart: [],
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id)
+    },
+    removeItem(id) {
+      this.cart.pop(id)
+    },
   },
 })
